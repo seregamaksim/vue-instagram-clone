@@ -1,5 +1,14 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <StoriesBoard />
   </div>
 </template>
+
+<script>
+import StoriesBoard from '@/components/StoriesBoard.vue';
+export default {
+  components: {
+    StoriesBoard
+  }
+}
+</script>

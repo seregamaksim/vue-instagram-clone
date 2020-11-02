@@ -1,11 +1,13 @@
 <template>
   <div class="home">
     <div class="container home__container">
-      <!-- Истории -->
-      
-      <div class="home__post-carousel">
-        <PostCard class="home__post-item"  v-for="(postCardData, index) in postCardDatas" :obj="postCardData" :key="index"/>
+      <div class="home__content-wrap">
+        <StoriesBoard />
+        <div class="home__post-carousel">
+          <PostCard class="home__post-item"  v-for="(postCardData, index) in postCardDatas" :obj="postCardData" :key="index"/>
+        </div>
       </div>
+      <!-- Сайдбар -->
     </div>
   </div>
 </template>
@@ -13,6 +15,7 @@
 <script>
 
 import PostCard from '@/components/PostCard.vue'
+import StoriesBoard from '@/components/StoriesBoard.vue'
 
 export default {
   data () {
@@ -37,13 +40,16 @@ export default {
     }
   },
   components: {
-    PostCard
+    PostCard, StoriesBoard
   }
 }
 </script>
 
 <style lang="scss">
-  .home__post-carousel {
+  .home__container {
+    padding-top: 30px;
+  }
+  .home__content-wrap {
     max-width: 614px;
   }
   .home__post-item {

@@ -18,6 +18,13 @@ export default {
 }
 </script>
 <style lang="scss">
+  body {
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  body, html {
+    margin: 0;
+    padding: 0;
+  }
   .container {
     margin: 0 auto;
     max-width: 975px;

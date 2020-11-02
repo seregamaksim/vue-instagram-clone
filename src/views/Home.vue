@@ -1,20 +1,52 @@
 <template>
   <div class="home">
-    <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
-    <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-
+    <div class="container home__container">
+      <!-- Истории -->
+      
+      <div class="home__post-carousel">
+        <PostCard class="home__post-item"  v-for="(postCardData, index) in postCardDatas" :obj="postCardData" :key="index"/>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 
+import PostCard from '@/components/PostCard.vue'
 
 export default {
-  name: 'Home',
+  data () {
+    return {
+      postCardDatas: ''
+    }
+  },
+  mounted () {
+    this.getPosts()
+  },
+  methods: {
+    async getPosts() {
+      const APP_ID = '5f9fb7689a6f7046d7463eb7'
+      let request = await fetch('https://dummyapi.io/data/api/post?limit=10', {
+        headers: {
+          'app-id': APP_ID
+        }
+      });
+      let response = await request.json();
+      this.postCardDatas = response.data;
+      console.log('response', this.postCardDatas);
+    }
+  },
   components: {
-    HelloWorld
+    PostCard
   }
 }
 </script>
+
+<style lang="scss">
+  .home__post-carousel {
+    max-width: 614px;
+  }
+  .home__post-item {
+    margin-bottom: 30px;
+  }
+</style>

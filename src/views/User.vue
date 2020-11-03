@@ -37,7 +37,16 @@
       </div>
       <ul class="user-page__posts-list">
         <li class="user-page__posts-item" v-for="post in userPosts" :key="post.id">
-          <img :src="post.image" alt="">
+          <a class="user-page__posts-item-link" href="#">
+            <img :src="post.image" alt="">
+            <div class="user-page__posts-item-info">
+              <p class="user-page__posts-item-likes">
+                <inline-svg class="user-page__posts-item-likes-img" :src="require(`../assets/like.svg`)" width="15" height="15"></inline-svg>
+                {{ post.likes }}
+              </p>
+            </div>
+          </a>
+          
         </li>
       </ul>
     </div>
@@ -193,5 +202,44 @@ export default {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 28px;
+  }
+  .user-page__posts-item {
+    padding-bottom: 100%;
+    position: relative;
+    img {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  .user-page__posts-item-info {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+  }
+  .user-page__posts-item-likes {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .user-page__posts-item-likes-img {
+    display: block;
+    margin-right: 7px;
+  }
+  .user-page__posts-item:hover .user-page__posts-item-info {
+    opacity: 1;
   }
 </style>

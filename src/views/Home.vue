@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <main class="home">
     <div class="container home__container">
       <div class="home__content-wrap">
         <StoriesBoard />
@@ -9,7 +9,7 @@
       </div>
       <!-- Сайдбар -->
     </div>
-  </div>
+  </main>
 </template>
 
 <script>

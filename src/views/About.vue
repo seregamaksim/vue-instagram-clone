@@ -1,7 +1,7 @@
 <template>
-  <div class="about">
+  <main class="about">
     <StoriesBoard />
-  </div>
+  </main>
 </template>
 
 <script>

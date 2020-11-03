@@ -1,0 +1,197 @@
+<template>
+  <main class="user-page user-page-id">
+    <div class="container user-page__container">
+      <div class="user-page__info user-info">
+        <div class="user-info__avatar-block">
+          <Avatar class="user-info__avatar-wrap" width="150" height="150" :srcAva="user.picture" />
+        </div>
+        <div class="user-info__description">
+          <h2 class="user-info__nickname">
+            {{ user.firstName + ' ' + user.lastName }}
+          </h2>
+          <ul class="user-info__count-list">
+            <li class="user-info__count-item">
+              <span>{{ userPosts.length }}</span> публикаций
+            </li>
+            <li class="user-info__count-item">
+              <span>{{ getRandomIntInclusive(1, 10000) }}</span> подписчиков
+            </li>
+            <li class="user-info__count-item">
+              <span>{{ getRandomIntInclusive(1, 1000) }}</span> подписок
+            </li>
+          </ul>
+          <h1 class="user-info__name">
+            {{ user.firstName + ' ' + user.lastName }}
+          </h1>
+          <div class="user-info__descr-wrapper">
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eos, dolores maiores quisquam mollitia non vitae ab incidunt laboriosam, accusamus totam commodi dolorum! Ea placeat deserunt delectus assumenda dolor voluptatem quos?</p>
+            <a :href="`mailto:${user.email}`">{{ user.email }}</a>
+          </div>
+        </div>
+      </div>
+      <div class="user-page__toggle-wrap">
+        <button class="user-page__toggle user-page__toggle--posts">
+          <inline-svg class="user-page__toggle-icon" :src="require(`../assets/posts.svg`)" width="12" height="12"></inline-svg>
+          Публикации
+          </button>
+      </div>
+      <ul class="user-page__posts-list">
+        <li class="user-page__posts-item" v-for="post in userPosts" :key="post.id">
+          <img :src="post.image" alt="">
+        </li>
+      </ul>
+    </div>
+    
+  </main>
+</template>
+
+<script>
+import {mapGetters} from 'vuex'
+import Avatar from '@/components/Avatar.vue'
+
+export default {
+  // Этот id приходит из route
+  props: ['id'],
+  data () {
+    return {
+      user: '',
+      idUser: this.$props.id,
+      userPosts: ''
+    }
+  },
+  mounted() {
+    this.getThisUser(this.idUser)
+    this.getUserPosts(this.idUser)
+  },
+  computed: mapGetters(['allUsers']),
+  methods: {
+    getRandomIntInclusive(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min; //Максимум и минимум включаются
+    },
+    async getThisUser(id) {
+      const APP_ID = '5f9fb7689a6f7046d7463eb7';
+      let response = await fetch(`https://dummyapi.io/data/api/user/${id}`, {
+        headers: {
+          'app-id': APP_ID
+        }
+      });
+      let user = await response.json();
+      this.user = user;
+    },
+    async getUserPosts(id) {
+      const APP_ID = '5f9fb7689a6f7046d7463eb7';
+      let response = await fetch(`https://dummyapi.io/data/api/user/${id}/post/`, {
+        headers: {
+          'app-id': APP_ID
+        }
+      });
+      let userPosts = await response.json();
+      this.userPosts = userPosts.data
+      console.log('userPosts', userPosts.data);
+    }
+  },
+  components: {
+    Avatar
+  }
+}
+</script>
+
+<style lang="scss">
+  .user-page__container {
+    padding-top: 30px;
+  }
+  .user-page__info {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding-bottom: 44px;
+    border-bottom: 1px solid #dbdbdb;
+  }
+  .user-info__avatar-block {
+    margin-right: 30px;
+    width: 30%;
+    display: flex;
+    justify-content: center;
+  }
+  .user-info__description {
+    // max-width: 614px;
+    width: 70%;
+  }
+  .user-info__nickname {
+    font-size: 28px;
+    line-height: 32px;
+    font-weight: 300;
+    color: #262626;
+    margin-bottom: 20px;
+  }
+  .user-info__count-list {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .user-info__count-item {
+    font-size: 16px;
+    color: #262626;
+    margin-right: 40px;
+    font-weight: 400;
+    list-style: none;
+    &:last-child {
+      margin-right: 0;
+    }
+    span {
+      font-weight: 600;
+    }
+  }
+  .user-info__name {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .user-info__descr-wrapper {
+    font-size: 16px;
+    line-height: 24px;
+    color: #262626;
+    font-weight: 400;
+    a {
+      color: #00376b;
+      text-decoration: none;
+      display: block;
+      font-weight: 600;
+    }
+  }
+  .user-page__toggle-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .user-page__toggle {
+    letter-spacing: 1px;
+    appearance: none;
+    border: none;
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 52px;
+    padding: 0;
+    text-transform: uppercase;
+    margin-right: 60px;
+    cursor: pointer;
+    border-top: 1px solid #000;
+    margin-top: -1px;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+  .user-page__toggle-icon {
+    display: inline-block;
+    margin-right: 6px;
+  }
+  .user-page__posts-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+</style>

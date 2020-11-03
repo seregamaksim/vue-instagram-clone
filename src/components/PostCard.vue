@@ -1,10 +1,10 @@
 <template>
   <article class="post-card">
     <header class="post-card__header">
-      <router-link class="post-card__header-avatar" to="#" style="width: 32px; height: 32px;">
+      <router-link class="post-card__header-avatar" :to="`/user/${obj.id}`" style="width: 32px; height: 32px;">
         <img class="post-card__header-avatar-img" :src="obj.owner.picture" alt="">
       </router-link>
-      <router-link class="post-card__header-name post-card__name" to="#">
+      <router-link class="post-card__header-name post-card__name" :to="`/user/${obj.id}`">
         {{ obj.owner.firstName + ' ' + obj.owner.lastName }}
       </router-link>
     </header>
@@ -19,7 +19,7 @@
           </a>
         </div>
         <div class="post-card__description-wrap">
-          <router-link class="post-card__name" to="#">
+          <router-link class="post-card__name" :to="`/user/${obj.id}`">
             {{ obj.owner.firstName + ' ' + obj.owner.lastName }}
           </router-link>
           <span>{{ obj.text }}</span>
@@ -59,6 +59,7 @@ export default {
     flex-direction: column;
     border-radius: 3px;
     border: 1px solid #dbdbdb;
+    background-color: #fff;
   }
   .post-card__header {
     display: flex;

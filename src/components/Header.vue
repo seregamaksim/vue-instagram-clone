@@ -26,6 +26,7 @@ export default {
 <style lang="scss">
   .page-header {
     border-bottom: 1px solid rgb(219, 219, 219);
+    background-color: #fff;
   }
   .page-header__container {
     display: flex;

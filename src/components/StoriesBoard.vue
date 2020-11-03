@@ -2,7 +2,7 @@
   <div class="users-board">
     <splide :options="options" :slides="allUsers" class="users-board__list">
       <splide-slide class="users-board__item" v-for="user in allUsers" :key="user.id">
-        <router-link to="#" class="users-board__item-link">
+        <router-link :to="`/user/${user.id}`" class="users-board__item-link">
           <Avatar class="users-board__item-ava" width="56" height="56" :srcAva="user.picture" />
           <p class="users-board__item-name">{{ user.firstName + ' ' + user.lastName }}</p>
         </router-link>
@@ -43,7 +43,7 @@ export default {
 <style lang="scss">
 
   .users-board {
-    background: #fff;
+    background-color: #fff;
     border: 1px solid #dbdbdb;
     border-radius: 3px;
     margin-bottom: 24px;

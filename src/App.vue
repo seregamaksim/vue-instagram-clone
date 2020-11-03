@@ -18,10 +18,13 @@ export default {
 }
 </script>
 <style lang="scss">
+  #app {
+    background-color: #fafafa;
+  }
   body {
     font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   }
-  body, html {
+  body, html, p, h1, h2, h3, ul {
     margin: 0;
     padding: 0;
   }
@@ -40,5 +43,8 @@ export default {
     display: block;
     max-width: 100%;
     height: auto;
+  }
+  li {
+    list-style: none;
   }
 </style>

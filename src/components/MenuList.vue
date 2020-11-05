@@ -4,12 +4,12 @@
       <MenuItem href="/" nameIcon="home" />
       
     </div>
-    <div class="menu-list__item">
+    <!-- <div class="menu-list__item">
       <MenuItem href="/about" nameIcon="direct" />
-    </div>
+    </div> -->
     <div class="menu-list__item">
-      <MenuItem href="/profile">
-        <Avatar nameAva="avatar.jpg" width="22" height="22" />
+      <MenuItem href="/user/NnAaDOwHshqreJE34qfV">
+        <Avatar srcAva="https://randomuser.me/api/portraits/men/48.jpg" width="22" height="22" />
       </MenuItem>
     </div>
   </div>

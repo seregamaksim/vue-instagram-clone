@@ -5,7 +5,13 @@
         <div class="user-info__avatar-block">
           <Avatar class="user-info__avatar-wrap" width="150" height="150" :srcAva="user.picture" />
         </div>
-        <div class="user-info__description">
+        <div class="user-info__description user-info__description--preloader" v-if="showPreloader">
+          <div class="user-info__description-preloader-nickname"></div>
+          <div class="user-info__description-preloader-count"></div>
+          <div class="user-info__description-preloader-name"></div>
+          <div class="user-info__description-preloader-text"></div>
+        </div>
+        <div class="user-info__description" v-else>
           <h2 class="user-info__nickname">
             {{ user.firstName + ' ' + user.lastName }}
           </h2>
@@ -65,8 +71,16 @@ export default {
     return {
       user: '',
       idUser: this.$props.id,
-      userPosts: ''
+      userPosts: '',
+      showPreloader: true
     }
+  },
+  beforeRouteUpdate (to, from, next) {
+    this.showPreloader = true;
+    this.idUser = to.params.id;
+    this.getThisUser(this.idUser)
+    this.getUserPosts(this.idUser)
+    next()
   },
   mounted() {
     this.getThisUser(this.idUser)
@@ -88,6 +102,7 @@ export default {
       });
       let user = await response.json();
       this.user = user;
+      this.showPreloader = false;
     },
     async getUserPosts(id) {
       const APP_ID = '5f9fb7689a6f7046d7463eb7';
@@ -241,5 +256,48 @@ export default {
   }
   .user-page__posts-item:hover .user-page__posts-item-info {
     opacity: 1;
+  }
+  .user-info__description--preloader * {
+    position: relative;
+    overflow: hidden;
+    background-color: rgba(211, 211, 211, 0.5);
+    border-radius: 3px;
+  }
+  .user-info__description-preloader-nickname {
+    height: 32px;
+    width: 150px;
+    margin-bottom: 20px;
+  }
+  .user-info__description-preloader-count {
+    width: 370px;
+    height: 22px;
+    margin-bottom: 20px;
+  }
+  .user-info__description-preloader-name {
+    width: 100px;
+    height: 24px;
+    margin-bottom: 5px;
+  }
+  .user-info__description-preloader-text {
+    width: 100%;
+    height: 70px;
+  }
+  
+  .user-info__description--preloader *::after {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    animation: loading 1.5s infinite;
+    
+    background: linear-gradient(90deg, rgba(211, 211, 211, 0) 0, rgba(255, 255, 255, 0.3) 50%, rgba(211, 211, 211, 0) 100%);
+  }
+  @keyframes loading {
+    to {
+      transform: translateX(100%);
+    }
   }
 </style>

@@ -1,5 +1,9 @@
 # vue-instagram-clone
 
+## Link to app
+
+https://vue-instagram-clone.herokuapp.com/
+
 ## Project setup
 ```
 npm install
